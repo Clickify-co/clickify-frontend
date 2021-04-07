@@ -1,0 +1,73 @@
+@import url("https://fonts.googleapis.com/css2?family=Roboto&display=swap");
+
+body {
+  font-family: "Roboto";
+  margin: 0 !important;
+  padding: 0 !important;
+}
+
+.display-1 {
+  font-size: 50px;
+  font-weight: bold;
+}
+
+.btn {
+  border: none;
+  color: white;
+  padding: 10px 20px;
+  text-align: center;
+  text-decoration: none;
+  transition: 0.3s;
+  border-radius: 0.4em;
+}
+
+.btn-lg {
+  padding: 16px 30px;
+  font-size: 16px;
+}
+
+.btn.btn-primary {
+  background-color: #007bff;
+  border: 2px solid #007bff;
+  border-radius: 50px;
+}
+.btn.btn-primary:hover {
+  border: 2px solid #007bff;
+  color: #007bff;
+  cursor: pointer;
+  background-color: transparent;
+}
+
+.btn.btn-outline-primary {
+  border: 2px solid #007bff;
+  color: #007bff;
+  background-color: transparent;
+  cursor: pointer;
+}
+.btn.btn-outline-primary:hover {
+  background-color: #007bff;
+  border: 2px solid #007bff;
+  color: white;
+}
+
+.btn.btn-danger-box {
+  background-color: #dc3545;
+}
+.btn.btn-danger-box:hover {
+  background-color: #c82333;
+  cursor: pointer;
+  outline: none;
+}
+
+.input-field {
+  font-size: 20px;
+  width: 80%;
+  padding: 1%;
+  border-radius: 0.4em;
+  border: none;
+  outline: none;
+}
+
+.input-field:focus {
+  outline: none;
+}

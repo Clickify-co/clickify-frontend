@@ -1,0 +1,55 @@
+/* Landing CSS */
+
+.landing {
+  margin: 10%;
+  margin-top: 1%;
+}
+nav {
+  display: flex;
+  justify-content: space-between;
+}
+
+.nav-list {
+  list-style: none;
+}
+.nav-link {
+  display: inline;
+  float: left;
+}
+
+.nav-link a {
+  display: block;
+  text-decoration: none;
+  color: black;
+  padding-left: 10px;
+  padding-right: 10px;
+  padding-bottom: 10px;
+  border-bottom: 3px solid transparent;
+  transition: 0.3s;
+}
+
+.nav-link a:hover {
+  border-bottom: 3px solid #007bff;
+  border-radius: 3px;
+}
+
+.nav-btn {
+  border-bottom: 3px solid transparent !important;
+}
+
+.hero-section {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: 5% 10%;
+}
+
+/* Section-1 CSS*/
+.quick-create {
+  min-height: 20vh;
+  display: flex;
+  padding: 0% 10%;
+  justify-content: space-evenly;
+  align-items: center;
+  background-color: #007bff;
+}

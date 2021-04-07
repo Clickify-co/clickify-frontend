@@ -1,25 +1,24 @@
-import logo from './logo.svg';
-import './App.css';
+import React, { Component } from 'react';
+import { Router } from "@reach/router"
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+import './base.css'
+
+import Home from './homeComponent/Home'
+import Login from './loginComponent/Login'
+import Register from './registerComponent/Register'
+
+class App extends Component {
+    render() {
+        return (
+            <div>
+                <Router>
+                    <Home path='/' />
+                    <Login path='/login' />
+                    <Register path='/register' />
+                </Router>
+            </div>
+        );
+    }
 }
 
 export default App;
