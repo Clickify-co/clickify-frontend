@@ -1,9 +1,23 @@
 import React, { Component } from 'react';
 import { Link } from '@reach/router'
+import axios from 'axios';
 import Logo from '../clickify.png'
 import './login.css'
 
 class Login extends Component {
+    constructor() {
+        super()
+        this.state = {
+            username: "",
+            password: ""
+        }
+    }
+    login() {
+        axios.post('http://localhost:3001/auth/loginUser', {
+            username: this.state.username,
+            password: this.state.password
+        })
+    }
     render() {
         return (
             <div>
@@ -20,13 +34,19 @@ class Login extends Component {
                         </div>
                         <div className="body-form">
                             <span htmlFor="username" className="text-gray text-left">Enter Username</span>
-                            <input type="text" placeholder='Username' />
+                            <input type="text"
+                                value={this.state.username}
+                                onChange={(e) => { this.setState({ username: e.target.value }) }}
+                                placeholder='Username' />
                             <br />
-                            <span htmlFor="username" className="text-gray text-left">Enter Password</span>
-                            <input type="password" placeholder='Password' />
+                            <span htmlFor="password" className="text-gray text-left">Enter Password</span>
+                            <input type="password"
+                                value={this.state.password}
+                                onChange={(e) => { this.setState({ password: e.target.password }) }}
+                                placeholder='Password' />
                             <br />
                             <Link to='/register' className='text-left'>Forgot Password?</Link>
-                            <input type="button" value="Sign in" />
+                            <input type="button" onClick={() => { this.login() }} value="Sign in" />
                         </div>
                     </div>
                 </div>
