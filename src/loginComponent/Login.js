@@ -17,6 +17,11 @@ class Login extends Component {
             username: this.state.username,
             password: this.state.password
         })
+            .then(response => {
+                if (response.data.done) {
+                    console.log("Login successful!")
+                }
+            })
     }
     render() {
         return (
