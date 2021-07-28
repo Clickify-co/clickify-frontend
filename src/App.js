@@ -6,6 +6,7 @@ import './base.css'
 import Home from './homeComponent/Home'
 import Login from './loginComponent/Login'
 import Register from './registerComponent/Register'
+import Dashboard from './dashboardComponent/Dashboard'
 
 class App extends Component {
     render() {
@@ -15,6 +16,7 @@ class App extends Component {
                     <Home path='/' />
                     <Login path='/login' />
                     <Register path='/register' />
+                    <Dashboard path='/dashboard' />
                 </Router>
             </div>
         );

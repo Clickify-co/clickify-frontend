@@ -1,15 +1,17 @@
 import React, { Component } from 'react';
-import { Link } from '@reach/router'
+import { Link, navigate } from '@reach/router'
 import axios from 'axios';
 import Logo from '../clickify.png'
 import './login.css'
 
 class Login extends Component {
-    constructor() {
-        super()
+    constructor(props) {
+        super(props)
         this.state = {
             username: "",
-            password: ""
+            password: "",
+            isFailure: false,
+            message: ""
         }
     }
     login() {
@@ -19,7 +21,18 @@ class Login extends Component {
         })
             .then(response => {
                 if (response.data.done) {
-                    console.log("Login successful!")
+                    navigate('/dashboard')
+                }
+                else {
+                    if (response.data.errorType === 'invalidAction') {
+                        this.setState({ isFailure: true, message: "already logged in" })
+                    }
+                    else if (response.data.errorType === 'validation') {
+                        this.setState({ isFailure: true, message: response.data.errorObject.details[0].message })
+                    }
+                    else if (response.data.errorType === 'invalidCredentials') {
+                        this.setState({ isFailure: true, message: response.data.errorObject.credentialProperty + 'Invalid Credentials!' })
+                    }
                 }
             })
     }
@@ -37,6 +50,9 @@ class Login extends Component {
                                 Do not have an account? <Link to='/register'>Sign up</Link>
                             </div>
                         </div>
+                        {this.state.isFailure ? <div className="error-message">
+                            {this.state.message}
+                        </div> : ''}
                         <div className="body-form">
                             <span htmlFor="username" className="text-gray text-left">Enter Username</span>
                             <input type="text"
@@ -47,7 +63,7 @@ class Login extends Component {
                             <span htmlFor="password" className="text-gray text-left">Enter Password</span>
                             <input type="password"
                                 value={this.state.password}
-                                onChange={(e) => { this.setState({ password: e.target.password }) }}
+                                onChange={(e) => { this.setState({ password: e.target.value }) }}
                                 placeholder='Password' />
                             <br />
                             <Link to='/register' className='text-left'>Forgot Password?</Link>
