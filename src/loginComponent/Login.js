@@ -21,6 +21,7 @@ class Login extends Component {
         })
             .then(response => {
                 if (response.data.done) {
+                    localStorage.setItem('auth_token', response.data.token)
                     navigate('/dashboard')
                 }
                 else {
