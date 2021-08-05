@@ -142,9 +142,15 @@ class Dashboard extends Component {
                                         {this.state.urls ? this.state.urls.map((url, index) => {
                                             return (<tr key={index}>
                                                 <td>
-                                                    {url.fullURL}
+                                                    <a href={'/' + url.fullURL} target='_blank' rel="noreferrer">
+                                                        {url.fullURL}
+                                                    </a>
                                                 </td>
-                                                <td>{url.shortURL}</td>
+                                                <td>
+                                                    <a href={'/' + url.shortURL} target='_blank' rel="noreferrer">
+                                                        {url.shortURL}
+                                                    </a>
+                                                </td>
                                                 <td>
                                                     {url.customBackPart ? <input type="text" value={this.state.urls[index].customBackPart}
                                                         onChange={(e) => { this.handleUpdateField(e, index) }} /> :
