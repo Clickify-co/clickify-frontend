@@ -10,7 +10,7 @@ class shortURLComponent extends Component {
     }
 
     componentDidMount() {
-        axios.post('http://clickifybackend.herokuapp.com/getFullURL', { shortURL: this.props.shortURL })
+        axios.post('https://clickifybackend.herokuapp.com/getFullURL', { shortURL: this.props.shortURL })
             .then((response) => {
                 if (response.data.done) {
                     axios.post('http://clickifybackend.herokuapp.com/addVisitToShortURL', { shortURL: this.props.shortURL })

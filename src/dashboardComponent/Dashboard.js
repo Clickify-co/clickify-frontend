@@ -19,7 +19,7 @@ class Dashboard extends Component {
     }
 
     componentDidMount() {
-        axios.get('http://clickifybackend.herokuapp.com/dashboard/', { headers: { 'auth-token': localStorage.getItem('auth_token') } })
+        axios.get('https://clickifybackend.herokuapp.com/dashboard/', { headers: { 'auth-token': localStorage.getItem('auth_token') } })
             .then(response => {
                 if (response.data.done) {
                     this.setState({ urls: response.data.userData.urls, newBackPart: response.data.userData.urls.map(() => '') })
@@ -37,7 +37,7 @@ class Dashboard extends Component {
     }
 
     shortenURL() {
-        axios.post('http://clickifybackend.herokuapp.com/dashboard/addNewShortUrl', {
+        axios.post('https://clickifybackend.herokuapp.com/dashboard/addNewShortUrl', {
             fullURL: this.state.fullURL
         }, { headers: { 'auth-token': localStorage.getItem('auth_token') } })
             .then(response => {
@@ -52,7 +52,7 @@ class Dashboard extends Component {
     }
 
     deleteShortURL(index) {
-        axios.post('http://clickifybackend.herokuapp.com/dashboard/deleteShortURL',
+        axios.post('https://clickifybackend.herokuapp.com/dashboard/deleteShortURL',
             { id: this.state.urls[index]._id },
             { headers: { 'auth-token': localStorage.getItem('auth_token') } })
             .then(response => {
@@ -79,7 +79,7 @@ class Dashboard extends Component {
 
     updateURL(index) {
         console.log(this.state.urls[index].customBackPart ? this.state.urls[index].customBackPart : this.state.newBackPart[index]);
-        axios.post('http://clickifybackend.herokuapp.com/dashboard/editShortURL',
+        axios.post('https://clickifybackend.herokuapp.com/dashboard/editShortURL',
             {
                 shortURL: this.state.urls[index].shortURL,
                 customBackPart: this.state.urls[index].customBackPart ? this.state.urls[index].customBackPart : this.state.newBackPart[index]
