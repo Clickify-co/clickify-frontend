@@ -10,10 +10,10 @@ class shortURLComponent extends Component {
     }
 
     componentDidMount() {
-        axios.post('http://localhost:3001/getFullURL', { shortURL: this.props.shortURL })
+        axios.post('http://clickifybackend.herokuapp.com/getFullURL', { shortURL: this.props.shortURL })
             .then((response) => {
                 if (response.data.done) {
-                    axios.post('http://localhost:3001/addVisitToShortURL', { shortURL: this.props.shortURL })
+                    axios.post('http://clickifybackend.herokuapp.com/addVisitToShortURL', { shortURL: this.props.shortURL })
                     navigate(response.data.fullURL);
                 }
                 else if (response.data.errorType === 'entityDoesNotExist') {

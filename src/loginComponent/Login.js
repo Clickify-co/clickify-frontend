@@ -15,7 +15,7 @@ class Login extends Component {
         }
     }
     login() {
-        axios.post('http://localhost:3001/auth/loginUser', {
+        axios.post('http://clickifybackend.herokuapp.com/auth/loginUser', {
             username: this.state.username,
             password: this.state.password
         })

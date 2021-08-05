@@ -17,7 +17,7 @@ class Register extends Component {
         }
     }
     register() {
-        axios.post('http://localhost:3001/auth/registerUser', {
+        axios.post('http://clickifybackend.herokuapp.com/auth/registerUser', {
             username: this.state.username,
             password: this.state.password,
             fullname: this.state.fullname,
