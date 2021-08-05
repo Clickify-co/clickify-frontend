@@ -2,25 +2,32 @@ import { Component } from "react";
 import './dashboard.css'
 import logo from '../clickify.png'
 import axios from "axios";
+import { navigate } from "@reach/router";
 class Dashboard extends Component {
     constructor(props) {
         super(props)
         this.state = {
             fullURL: '',
-            urls: []
+            urls: [],
+            newBackPart: []
         }
+    }
+
+    logout() {
+        localStorage.removeItem('auth_token');
+        navigate('/login')
     }
 
     componentDidMount() {
         axios.get('http://localhost:3001/dashboard/', { headers: { 'auth-token': localStorage.getItem('auth_token') } })
             .then(response => {
                 if (response.data.done) {
-                    this.setState({ urls: response.data.userData.urls })
-
-
+                    this.setState({ urls: response.data.userData.urls, newBackPart: response.data.userData.urls.map(() => '') })
+                    console.log(response.data.userData.urls)
                 }
                 else {
-                    alert('error Loading URLS. Contact System Admin.')
+                    alert('Error Loading URLS. Try Loggin in again.')
+                    navigate('/login')
                 }
             })
     }
@@ -44,6 +51,54 @@ class Dashboard extends Component {
             })
     }
 
+    deleteShortURL(index) {
+        axios.post('http://localhost:3001/dashboard/deleteShortURL',
+            { id: this.state.urls[index]._id },
+            { headers: { 'auth-token': localStorage.getItem('auth_token') } })
+            .then(response => {
+                if (response.data.done) {
+                    alert('URL Deleted Succesfully')
+                    this.componentDidMount()
+                }
+                else {
+                    alert('Some Error Occurred.')
+                }
+            })
+    }
+
+    handleUpdateField(e, index) {
+        let items = [...this.state.urls]
+        items[index].customBackPart = e.target.value
+        this.setState({ urls: items })
+    }
+    handleUpdateFieldNewBackPart(e, index) {
+        let items = [...this.state.newBackPart]
+        items[index] = e.target.value
+        this.setState({ newBackPart: items })
+    }
+
+    updateURL(index) {
+        console.log(this.state.urls[index].customBackPart ? this.state.urls[index].customBackPart : this.state.newBackPart[index]);
+        axios.post('http://localhost:3001/dashboard/editShortURL',
+            {
+                shortURL: this.state.urls[index].shortURL,
+                customBackPart: this.state.urls[index].customBackPart ? this.state.urls[index].customBackPart : this.state.newBackPart[index]
+            },
+            { headers: { 'auth-token': localStorage.getItem('auth_token') } })
+            .then(response => {
+                if (response.data.done) {
+                    alert('URL Back Part Updated Succesfully')
+                    this.componentDidMount()
+                }
+                else if (response.data.errorType === 'existingEntity') {
+                    alert('URL Not updated. Back part was taken.')
+                }
+                else {
+                    alert('Unknown Error Occurred')
+                }
+            })
+    }
+
     render() {
         return (
             <div className="container">
@@ -52,7 +107,7 @@ class Dashboard extends Component {
                         <img src={logo} alt="Clickify Logo" height="50px" />
                     </div>
                     <div className="nav-right">
-                        <button className="btn" >Logout</button>
+                        <button className="btn" onClick={() => { this.logout() }}>Logout</button>
                     </div>
                 </nav>
                 <div className="main">
@@ -75,6 +130,7 @@ class Dashboard extends Component {
                                             <th>Full URL</th>
                                             <th>ShortURL</th>
                                             <th>Custom Back Part</th>
+                                            <th>Visits</th>
                                             <th>Actions</th>
                                         </tr>
                                     </thead>
@@ -89,8 +145,21 @@ class Dashboard extends Component {
                                                     {url.fullURL}
                                                 </td>
                                                 <td>{url.shortURL}</td>
-                                                <td>{url.customBackPart ? url.customBackPart : 'No Custom Back Part'}</td>
-                                                <td></td>
+                                                <td>
+                                                    {url.customBackPart ? <input type="text" value={this.state.urls[index].customBackPart}
+                                                        onChange={(e) => { this.handleUpdateField(e, index) }} /> :
+                                                        <input value={this.state.newBackPart[index]}
+                                                            onChange={(e) => { this.handleUpdateFieldNewBackPart(e, index) }}
+                                                            type="text" placeholder='Add Custom Back Part' />
+                                                    }
+                                                    <button className="" onClick={() => this.updateURL(index)}>
+                                                        Update
+                                                    </button>
+                                                </td>
+                                                <td>{url.numberOfVisits}</td>
+                                                <td>
+                                                    <button onClick={() => { this.deleteShortURL(index) }} className="btn">Delete</button>
+                                                </td>
                                             </tr>)
                                         }) : 'Loading'}
                                     </tbody>
