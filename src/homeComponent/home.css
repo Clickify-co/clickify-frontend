@@ -20,7 +20,7 @@ nav {
 .nav-link a {
   display: block;
   text-decoration: none;
-  color: black;
+  color: black !important;
   padding-left: 10px;
   padding-right: 10px;
   padding-bottom: 10px;
@@ -46,7 +46,7 @@ nav {
 
 /* Section-1 CSS*/
 .quick-create {
-  min-height: 20vh;
+  height: 15vh;
   display: flex;
   padding: 0% 10%;
   justify-content: space-evenly;

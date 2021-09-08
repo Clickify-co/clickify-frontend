@@ -34,7 +34,7 @@ class Home extends Component {
                         <div className="hero">
                             <div className="display-1">
                                 Create Small,Better
-                                    <br />
+                                <br />
                                 more clickable Links
                                 <br />
                                 <button className="btn btn-lg btn-primary">
